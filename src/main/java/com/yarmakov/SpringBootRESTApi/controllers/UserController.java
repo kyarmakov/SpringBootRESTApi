@@ -2,14 +2,12 @@ package com.yarmakov.SpringBootRESTApi.controllers;
 
 import com.yarmakov.SpringBootRESTApi.dto.UserRequest;
 import com.yarmakov.SpringBootRESTApi.entities.User;
+import com.yarmakov.SpringBootRESTApi.exceptions.UserNotFoundException;
 import com.yarmakov.SpringBootRESTApi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
@@ -24,5 +22,10 @@ public class UserController {
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody UserRequest userRequest) {
         return new ResponseEntity<>(userService.saveUser(userRequest), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@RequestParam("id") int id) throws UserNotFoundException {
+        return ResponseEntity.ok(userService.findUserById(id));
     }
 }
