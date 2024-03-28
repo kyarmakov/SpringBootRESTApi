@@ -2,6 +2,7 @@ package com.yarmakov.SpringBootRESTApi.services;
 
 import com.yarmakov.SpringBootRESTApi.dto.UserRequest;
 import com.yarmakov.SpringBootRESTApi.entities.User;
+import com.yarmakov.SpringBootRESTApi.exceptions.UserAlreadyExistsException;
 import com.yarmakov.SpringBootRESTApi.exceptions.UserNotFoundException;
 import com.yarmakov.SpringBootRESTApi.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -22,7 +23,16 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User saveUser(UserRequest userRequest) {
+    public User saveUser(UserRequest userRequest) throws UserAlreadyExistsException {
+        Optional<User> userFoundByEmail = userRepository.findByEmail(userRequest.getEmail());
+        Optional<User> userFoundByMobile = userRepository.findByMobile(userRequest.getMobile());
+
+        if (userFoundByEmail.isPresent())
+            throw new UserAlreadyExistsException("User with such email already exists.");
+
+        if (userFoundByMobile.isPresent())
+            throw new UserAlreadyExistsException("User with such mobile already exists");
+
         User user = modelMapper.map(userRequest, User.class);
 
         return userRepository.save(user);

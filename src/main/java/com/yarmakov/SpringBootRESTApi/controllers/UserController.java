@@ -2,6 +2,7 @@ package com.yarmakov.SpringBootRESTApi.controllers;
 
 import com.yarmakov.SpringBootRESTApi.dto.UserRequest;
 import com.yarmakov.SpringBootRESTApi.entities.User;
+import com.yarmakov.SpringBootRESTApi.exceptions.UserAlreadyExistsException;
 import com.yarmakov.SpringBootRESTApi.exceptions.UserNotFoundException;
 import com.yarmakov.SpringBootRESTApi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<User> createUser(@RequestBody UserRequest userRequest) throws UserAlreadyExistsException {
         return new ResponseEntity<>(userService.saveUser(userRequest), HttpStatus.CREATED);
     }
 
