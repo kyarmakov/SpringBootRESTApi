@@ -6,8 +6,10 @@ import com.yarmakov.SpringBootRESTApi.exceptions.UserNotFoundException;
 import com.yarmakov.SpringBootRESTApi.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,5 +35,9 @@ public class UserService {
             throw new UserNotFoundException("User with id: " + id + " cannot be found.");
 
         return user.get();
+    }
+
+    public List<User> findAllUsers() {
+        return userRepository.findAll();
     }
 }
