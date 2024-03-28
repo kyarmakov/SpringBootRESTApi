@@ -13,4 +13,10 @@ public class ApplicationExceptionHandler {
     public String handleUserNotFound(Exception e) {
         return e.getMessage();
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public String handleUserAlreadyExists(Exception e) {
+        return e.getMessage();
+    }
 }
