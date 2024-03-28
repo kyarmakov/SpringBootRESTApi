@@ -17,7 +17,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User createUser(UserRequest userRequest) {
+    public User saveUser(UserRequest userRequest) {
         User user = modelMapper.map(userRequest, User.class);
 
         return userRepository.save(user);
