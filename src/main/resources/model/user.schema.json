@@ -51,10 +51,7 @@
       }
     },
     "married": {
-      "type": "boolean",
-      "message": {
-        "type": "married: boolean is expected"
-      }
+      "type": ["boolean", "null"]
     }
   },
   "required": [

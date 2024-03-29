@@ -23,6 +23,9 @@ public class ApplicationExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(NotValidJSONException.class)
     public String handleNotValidJSON(Exception e) {
+        if (e.getMessage().contains("$.married:"))
+            return "married: can be of type boolean, null or omitted";
+
         return e.getMessage();
     }
 }
