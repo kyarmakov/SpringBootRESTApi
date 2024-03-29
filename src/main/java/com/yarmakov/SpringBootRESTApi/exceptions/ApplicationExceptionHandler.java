@@ -1,6 +1,8 @@
 package com.yarmakov.SpringBootRESTApi.exceptions;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -10,22 +12,42 @@ public class ApplicationExceptionHandler {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(UserNotFoundException.class)
-    public String handleUserNotFound(Exception e) {
+    public String handleUserNotFoundException(Exception e) {
         return e.getMessage();
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(UserAlreadyExistsException.class)
-    public String handleUserAlreadyExists(Exception e) {
+    public String handleUserAlreadyExistsException(Exception e) {
         return e.getMessage();
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(NotValidJSONException.class)
-    public String handleNotValidJSON(Exception e) {
+    public String handleNotValidJSONException(Exception e) {
         if (e.getMessage().contains("$.married:"))
             return "married: can be of type boolean, null or omitted";
 
         return e.getMessage();
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public String handleHttpMessageNotReadableException() {
+        return "required request body is missing.";
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NumberFormatException.class)
+    public String handleNumberFormatExceptionException() {
+        return "request body: object {} is expected.";
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(JsonParseException.class)
+    public String handleJsonParseException() {
+        return "not valid json.";
+    }
 }
+
+
