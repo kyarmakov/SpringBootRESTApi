@@ -19,4 +19,10 @@ public class ApplicationExceptionHandler {
     public String handleUserAlreadyExists(Exception e) {
         return e.getMessage();
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NotValidJSONException.class)
+    public String handleNotValidJSON(Exception e) {
+        return e.getMessage();
+    }
 }
