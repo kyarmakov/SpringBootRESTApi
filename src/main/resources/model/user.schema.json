@@ -3,22 +3,58 @@
   "type": "object",
   "properties": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 35,
+      "pattern": "^[a-z A-Z.,'-]+$",
+      "message": {
+        "type": "name: string is expected.",
+        "minLength": "name: minimum 2 characters are required.",
+        "maxLength": "name: should be no longer than 35 characters.",
+        "pattern": "name: should only accept a-z A-Z .,- characters."
+      }
     },
     "surname": {
-      "type": "string"
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 35,
+      "pattern": "^[a-z A-Z.,'-]+$",
+      "message": {
+        "type": "surname: string is expected.",
+        "minLength": "surname: minimum 2 characters are required.",
+        "maxLength": "surname: should be no longer than 35 characters.",
+        "pattern": "surname: should only accept a-z A-Z .,- characters."
+      }
     },
     "email": {
-      "type": "string"
+      "type": "string",
+      "format": "email",
+      "message": {
+        "type": "email: string is expected.",
+        "format": "email: not a valid email."
+      }
     },
     "mobile": {
-      "type": "string"
+      "type": "string",
+      "pattern": "^(\\+\\d{1,3})\\d{10}$",
+      "message": {
+        "type": "mobile: string is expected.",
+        "pattern": "mobile: should be in the following format: +11234567890 or +121234567890 or +1231234567890."
+      }
     },
     "age": {
-      "type": "integer"
+      "type": "integer",
+      "minimum": 18,
+      "message": {
+        "type": "age: integer is expected.",
+        "minimum": "age: should be 18 or higher."
+      }
     },
     "married": {
-      "type": "boolean"
+      "type": "boolean",
+      "message": {
+        "type": "married: boolean is expected"
+      }
     }
   },
   "required": [
@@ -26,7 +62,16 @@
     "surname",
     "email",
     "mobile",
-    "age",
-    "married"
-  ]
+    "age"
+  ],
+  "message": {
+    "type": "request body: object {} is expected",
+    "required": {
+      "name": "name is required",
+      "surname": "surname is required",
+      "email": "email is required",
+      "mobile": "mobile is required",
+      "age": "age is required"
+    }
+  }
 }
