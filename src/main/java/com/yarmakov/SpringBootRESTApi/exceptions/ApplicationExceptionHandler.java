@@ -40,7 +40,7 @@ public class ApplicationExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(NumberFormatException.class)
     public String handleNumberFormatExceptionException() {
-        return "request body: object {} is expected.";
+        return "not valid type";
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
