@@ -41,19 +41,19 @@ public class ApplicationExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(NumberFormatException.class)
     public String handleNumberFormatExceptionException() {
-        return "not valid type for request body, should be {}.";
+        return "invalid type for request body, should be {}.";
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public String handleMethodArgumentTypeMismatchException() {
-        return "not valid type for path variable.";
+        return "invalid type for path variable.";
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(JsonParseException.class)
     public String handleJsonParseException() {
-        return "not valid json.";
+        return "invalid json.";
     }
 }
 
