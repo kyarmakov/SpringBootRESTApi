@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping(value = "/users", consumes = "application/json")
+@RequestMapping(value = "/users")
 public class UserController {
     private final UserService userService;
 
@@ -32,7 +32,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<User> createUser(@RequestBody String requestStr) throws UserAlreadyExistsException,
             JsonProcessingException, NotValidJSONException {
         InputStream schemaAsStream = UserController.class.getClassLoader().getResourceAsStream("model/user.schema.json");
