@@ -1,6 +1,7 @@
 package com.yarmakov.SpringBootRESTApi.exceptions;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.yarmakov.SpringBootRESTApi.dto.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,47 +14,47 @@ public class ApplicationExceptionHandler {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(UserNotFoundException.class)
-    public String handleUserNotFoundException(Exception e) {
-        return e.getMessage();
+    public ErrorResponse handleUserNotFoundException(Exception e) {
+        return new ErrorResponse(e.getMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(UserAlreadyExistsException.class)
-    public String handleUserAlreadyExistsException(Exception e) {
-        return e.getMessage();
+    public ErrorResponse handleUserAlreadyExistsException(Exception e) {
+        return new ErrorResponse(e.getMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(NotValidJSONException.class)
-    public String handleNotValidJSONException(Exception e) {
+    public ErrorResponse handleNotValidJSONException(Exception e) {
         if (e.getMessage().contains("$.married:"))
-            return "married: can be of type boolean, null or omitted";
+            return new ErrorResponse("married: can be of type boolean, null or omitted");
 
-        return e.getMessage();
+        return new ErrorResponse(e.getMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public String handleHttpMessageNotReadableException() {
-        return "required request body is missing.";
+    public ErrorResponse handleHttpMessageNotReadableException() {
+        return new ErrorResponse("required request body is missing");
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(NumberFormatException.class)
-    public String handleNumberFormatExceptionException() {
-        return "invalid type for request body, should be {}.";
+    public ErrorResponse handleNumberFormatExceptionException() {
+        return new ErrorResponse("invalid type for request body, should be {}");
     }
 
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public String handleMethodArgumentTypeMismatchException() {
-        return "invalid type for path variable.";
+    public ErrorResponse handleMethodArgumentTypeMismatchException() {
+        return new ErrorResponse("invalid type for path variable");
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(JsonParseException.class)
-    public String handleJsonParseException() {
-        return "invalid json.";
+    public ErrorResponse handleJsonParseException() {
+        return new ErrorResponse("invalid json");
     }
 }
 
