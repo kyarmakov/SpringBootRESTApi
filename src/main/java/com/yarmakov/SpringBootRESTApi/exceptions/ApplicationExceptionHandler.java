@@ -1,6 +1,7 @@
 package com.yarmakov.SpringBootRESTApi.exceptions;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import com.yarmakov.SpringBootRESTApi.dto.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -55,6 +56,14 @@ public class ApplicationExceptionHandler {
     @ExceptionHandler(JsonParseException.class)
     public ErrorResponse handleJsonParseException() {
         return new ErrorResponse("invalid json");
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(UnrecognizedPropertyException.class)
+    public ErrorResponse handleUnrecognizedPropertyException(Exception e) {
+        String unrecognizedField = e.getMessage().split(" ")[2].replace("\"", "");
+
+        return new ErrorResponse("Unrecognized field " + unrecognizedField);
     }
 }
 
