@@ -34,14 +34,6 @@
         "format": "email: not a valid email."
       }
     },
-    "mobile": {
-      "type": "string",
-      "pattern": "^(\\+\\d{1,3})\\d{10}$",
-      "message": {
-        "type": "mobile: string is expected.",
-        "pattern": "mobile: should be in the following format: +11234567890 or +121234567890 or +1231234567890."
-      }
-    },
     "age": {
       "type": "integer",
       "minimum": 18,
@@ -58,7 +50,6 @@
     "name",
     "surname",
     "email",
-    "mobile",
     "age"
   ],
   "message": {
@@ -67,7 +58,6 @@
       "name": "name is required",
       "surname": "surname is required",
       "email": "email is required",
-      "mobile": "mobile is required",
       "age": "age is required"
     }
   }

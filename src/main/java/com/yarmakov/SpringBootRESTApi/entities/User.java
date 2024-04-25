@@ -18,8 +18,6 @@ public class User {
 
     private String email;
 
-    private String mobile;
-
     private Integer age;
 
     private Boolean married;
@@ -27,11 +25,10 @@ public class User {
     public User() {
     }
 
-    public User(String name, String surname, String email, String mobile, Integer age, Boolean married) {
+    public User(String name, String surname, String email, Integer age, Boolean married) {
         this.name = name;
         this.surname = surname;
         this.email = email;
-        this.mobile = mobile;
         this.age = age;
         this.married = married;
     }
@@ -66,14 +63,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
     }
 
     public Integer getAge() {

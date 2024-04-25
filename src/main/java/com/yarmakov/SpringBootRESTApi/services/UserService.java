@@ -25,13 +25,9 @@ public class UserService {
 
     public User saveUser(UserRequest userRequest) throws UserAlreadyExistsException {
         Optional<User> userFoundByEmail = userRepository.findByEmail(userRequest.getEmail());
-        Optional<User> userFoundByMobile = userRepository.findByMobile(userRequest.getMobile());
 
         if (userFoundByEmail.isPresent())
-            throw new UserAlreadyExistsException("User with such email already exists.");
-
-        if (userFoundByMobile.isPresent())
-            throw new UserAlreadyExistsException("User with such mobile already exists");
+            throw new UserAlreadyExistsException("User with such email already exists");
 
         User user = modelMapper.map(userRequest, User.class);
 
@@ -42,7 +38,7 @@ public class UserService {
         Optional<User> user = userRepository.findById(id);
 
         if (user.isEmpty())
-            throw new UserNotFoundException("User with id: " + id + " cannot be found.");
+            throw new UserNotFoundException("User with id: " + id + " cannot be found");
 
         return user.get();
     }
