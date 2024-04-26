@@ -31,7 +31,7 @@
       "format": "email",
       "message": {
         "type": "email: string is expected.",
-        "format": "email: not a valid email."
+        "format": "email: invalid email."
       }
     },
     "age": {

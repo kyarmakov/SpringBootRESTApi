@@ -43,12 +43,12 @@ public class UserController {
 
         Set<ValidationMessage> errors = schema.validate(jsonNode);
 
-        String errorsCombined = "";
+        StringBuilder errorsCombined = new StringBuilder();
         for (ValidationMessage error : errors)
-            errorsCombined += error.toString() + "\n";
+            errorsCombined.append(error.toString());
 
         if (errors.size() > 0)
-            throw new NotValidJSONException(errorsCombined);
+            throw new NotValidJSONException(errorsCombined.toString());
 
         UserRequest userRequest = om.readValue(requestStr, UserRequest.class);
 
