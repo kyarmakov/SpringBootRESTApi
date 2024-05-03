@@ -35,12 +35,9 @@ public class UserService {
     }
 
     public User findUserById(int id) throws UserNotFoundException {
-        Optional<User> user = userRepository.findById(id);
+        findUserOrThrowException(id);
 
-        if (user.isEmpty())
-            throw new UserNotFoundException("User with id: " + id + " cannot be found");
-
-        return user.get();
+        return userRepository.findById(id).get();
     }
 
     public List<User> findAllUsers() {
@@ -48,23 +45,24 @@ public class UserService {
     }
 
     public void deleteUserById(int id) throws UserNotFoundException {
-        Optional<User> user = userRepository.findById(id);
-
-        if (user.isEmpty())
-            throw new UserNotFoundException("User with id: " + id + " cannot be found");
+        findUserOrThrowException(id);
 
         userRepository.deleteById(id);
     }
 
     public User updateUser(UserRequest userRequest, int id) throws UserNotFoundException {
-        Optional<User> optionalUser = userRepository.findById(id);
-
-        if (optionalUser.isEmpty())
-            throw new UserNotFoundException("User with id: " + id + " cannot be found");
+        findUserOrThrowException(id);
 
         User user = modelMapper.map(userRequest, User.class);
         user.setId(id);
 
         return userRepository.save(user);
+    }
+
+    private void findUserOrThrowException(int id) throws UserNotFoundException {
+        Optional<User> user = userRepository.findById(id);
+
+        if (user.isEmpty())
+            throw new UserNotFoundException("User with id: " + id + " cannot be found");
     }
 }

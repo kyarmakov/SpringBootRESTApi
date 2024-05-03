@@ -8,10 +8,10 @@
       "maxLength": 35,
       "pattern": "^[a-z A-Z.,'-]+$",
       "message": {
-        "type": "name: string is expected.",
-        "minLength": "name: minimum 2 characters are required.",
-        "maxLength": "name: should be no longer than 35 characters.",
-        "pattern": "name: should only accept a-z A-Z .,- characters."
+        "type": "name: string is expected",
+        "minLength": "name: minimum 2 characters are required",
+        "maxLength": "name: should be no longer than 35 characters",
+        "pattern": "name: should only accept a-z A-Z .,- characters"
       }
     },
     "surname": {
@@ -20,26 +20,26 @@
       "maxLength": 35,
       "pattern": "^[a-z A-Z.,'-]+$",
       "message": {
-        "type": "surname: string is expected.",
-        "minLength": "surname: minimum 2 characters are required.",
-        "maxLength": "surname: should be no longer than 35 characters.",
-        "pattern": "surname: should only accept a-z A-Z .,- characters."
+        "type": "surname: string is expected",
+        "minLength": "surname: minimum 2 characters are required",
+        "maxLength": "surname: should be no longer than 35 characters",
+        "pattern": "surname: should only accept a-z A-Z .,- characters"
       }
     },
     "email": {
       "type": "string",
       "format": "email",
       "message": {
-        "type": "email: string is expected.",
-        "format": "email: invalid email."
+        "type": "email: string is expected",
+        "format": "email: invalid email"
       }
     },
     "age": {
       "type": "integer",
       "minimum": 18,
       "message": {
-        "type": "age: integer is expected.",
-        "minimum": "age: should be 18 or higher."
+        "type": "age: integer is expected",
+        "minimum": "age: should be 18 or higher"
       }
     },
     "married": {

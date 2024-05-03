@@ -35,22 +35,7 @@ public class UserController {
     @PostMapping(consumes = "application/json")
     public ResponseEntity<User> createUser(@RequestBody String requestStr) throws UserAlreadyExistsException,
             JsonProcessingException, NotValidJSONException {
-        InputStream schemaAsStream = UserController.class.getClassLoader().getResourceAsStream("model/user.schema.json");
-        JsonSchema schema = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V4).getSchema(schemaAsStream);
-
-        ObjectMapper om = new ObjectMapper();
-        JsonNode jsonNode = om.readTree(requestStr);
-
-        Set<ValidationMessage> errors = schema.validate(jsonNode);
-
-        StringBuilder errorsCombined = new StringBuilder();
-        for (ValidationMessage error : errors)
-            errorsCombined.append(error.toString());
-
-        if (errors.size() > 0)
-            throw new NotValidJSONException(errorsCombined.toString());
-
-        UserRequest userRequest = om.readValue(requestStr, UserRequest.class);
+        UserRequest userRequest = validateJsonSchema(requestStr);
 
         return new ResponseEntity<>(userService.saveUser(userRequest), HttpStatus.CREATED);
     }
@@ -74,6 +59,12 @@ public class UserController {
     @PutMapping(value = "/{id}", consumes = "application/json")
     public ResponseEntity<User> updateUser(@RequestBody String requestStr, @PathVariable("id") int id)
             throws JsonProcessingException, NotValidJSONException, UserNotFoundException {
+        UserRequest userRequest = validateJsonSchema(requestStr);
+
+        return new ResponseEntity<>(userService.updateUser(userRequest, id), HttpStatus.OK);
+    }
+
+    private UserRequest validateJsonSchema(String requestStr) throws JsonProcessingException, NotValidJSONException {
         InputStream schemaAsStream = UserController.class.getClassLoader().getResourceAsStream("model/user.schema.json");
         JsonSchema schema = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V4).getSchema(schemaAsStream);
 
@@ -84,13 +75,13 @@ public class UserController {
 
         StringBuilder errorsCombined = new StringBuilder();
         for (ValidationMessage error : errors)
-            errorsCombined.append(error.toString());
+            errorsCombined.append(error.toString()).append("; ");
 
         if (errors.size() > 0)
             throw new NotValidJSONException(errorsCombined.toString());
 
         UserRequest userRequest = om.readValue(requestStr, UserRequest.class);
 
-        return new ResponseEntity<>(userService.updateUser(userRequest, id), HttpStatus.OK);
+        return userRequest;
     }
 }
