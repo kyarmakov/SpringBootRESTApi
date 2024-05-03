@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping(value = "/users")
+@RequestMapping(value = "/users", produces = "application/json")
 public class UserController {
     private final UserService userService;
 

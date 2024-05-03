@@ -6,3 +6,6 @@ spring:
     url: jdbc:h2:mem:testdb
 server:
   port: 8989
+springdoc:
+  swagger-ui:
+    url: /swagger.json
