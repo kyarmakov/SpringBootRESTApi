@@ -70,4 +70,27 @@ public class UserController {
         userService.deleteUserById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @PutMapping(value = "/{id}", consumes = "application/json")
+    public ResponseEntity<User> updateUser(@RequestBody String requestStr, @PathVariable("id") int id)
+            throws JsonProcessingException, NotValidJSONException, UserNotFoundException {
+        InputStream schemaAsStream = UserController.class.getClassLoader().getResourceAsStream("model/user.schema.json");
+        JsonSchema schema = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V4).getSchema(schemaAsStream);
+
+        ObjectMapper om = new ObjectMapper();
+        JsonNode jsonNode = om.readTree(requestStr);
+
+        Set<ValidationMessage> errors = schema.validate(jsonNode);
+
+        StringBuilder errorsCombined = new StringBuilder();
+        for (ValidationMessage error : errors)
+            errorsCombined.append(error.toString());
+
+        if (errors.size() > 0)
+            throw new NotValidJSONException(errorsCombined.toString());
+
+        UserRequest userRequest = om.readValue(requestStr, UserRequest.class);
+
+        return new ResponseEntity<>(userService.updateUser(userRequest, id), HttpStatus.OK);
+    }
 }

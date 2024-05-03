@@ -55,4 +55,16 @@ public class UserService {
 
         userRepository.deleteById(id);
     }
+
+    public User updateUser(UserRequest userRequest, int id) throws UserNotFoundException {
+        Optional<User> optionalUser = userRepository.findById(id);
+
+        if (optionalUser.isEmpty())
+            throw new UserNotFoundException("User with id: " + id + " cannot be found");
+
+        User user = modelMapper.map(userRequest, User.class);
+        user.setId(id);
+
+        return userRepository.save(user);
+    }
 }
