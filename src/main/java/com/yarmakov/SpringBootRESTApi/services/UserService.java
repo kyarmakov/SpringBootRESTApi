@@ -46,4 +46,13 @@ public class UserService {
     public List<User> findAllUsers() {
         return userRepository.findAll();
     }
+
+    public void deleteUserById(int id) throws UserNotFoundException {
+        Optional<User> user = userRepository.findById(id);
+
+        if (user.isEmpty())
+            throw new UserNotFoundException("User with id: " + id + " cannot be found");
+
+        userRepository.deleteById(id);
+    }
 }
