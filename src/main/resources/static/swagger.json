@@ -187,9 +187,6 @@
           "400": {
             "description": "Invalid request body supplied"
           },
-          "404": {
-            "description": "User Not Found"
-          },
           "201": {
             "description": "Created",
             "content": {
