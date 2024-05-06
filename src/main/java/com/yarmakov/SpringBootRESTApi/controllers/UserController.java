@@ -75,7 +75,7 @@ public class UserController {
 
         StringBuilder errorsCombined = new StringBuilder();
         for (ValidationMessage error : errors)
-            errorsCombined.append(error.toString()).append("; ");
+            errorsCombined.append(error.toString()).append(";");
 
         if (errors.size() > 0)
             throw new NotValidJSONException(errorsCombined.toString());
