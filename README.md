@@ -1,6 +1,6 @@
 Simple CRUD backend app for testing purposes.
 
-In order to run the app you'll need Maven and Docker installed on your machine (Docker Desktop for Windows).
+To run the app you'll need JDK-17, Maven and Docker installed on your machine.
 
 Steps to run the app:
 1) Clone the project into a directory of your preference
