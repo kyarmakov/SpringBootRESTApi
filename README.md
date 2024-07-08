@@ -1,8 +1,13 @@
 Simple CRUD backend app for testing purposes with in-memory H2 database.
 
-To run the app you'll need JDK-17, Maven and Docker installed on your machine.
+To run the app you'll need JDK-17, Maven (and optionally Docker) installed on your machine.
 
 Steps to run the app:
+1) Clone the project into a directory of your preference (you can use Git Bash on Windows)
+2) Move to the project directory ```cd SpringBootRESTApi/```
+3) Run command ```mvn spring-boot:run``` to start the app. Press Ctrl+C to stop it.
+
+Steps to run the app with Docker:
 1) Clone the project into a directory of your preference (you can use Git Bash on Windows)
 2) Move to the project directory ```cd SpringBootRESTApi/```
 3) Run command ```mvn clean install && docker build -t springboot-app .```
